@@ -7,45 +7,47 @@ use Illuminate\Http\Request;
 
 class AgendamentoController extends Controller
 {
-    public function AgendamentoCad(Request $req){
-        $agendamento = Agendamento::all();
-        return view('AgendamentoCad')->with("agendamento", $agendamento);
+    public function AgendamentoCad(Request $req)
+    {
+        $agendamentoCA = Agendamento::all();
+        return view('AgendamentoCad')->with("agendamentoCA", $agendamentoCA);
     }
 
-    public function adicionarA(Request $req){
-        $agendamento = new Agendamento;
-        $agendamento->Servico = $req->Servico;
-        $agendamento->DataServico = $req->DataServico;
-        $agendamento->Horario = $req->Horario;
-        $agendamento->IdCliente = $req->IdCliente;
-        $agendamento->IdFunc = $req->IdFunc;
-    
-        $agendamento->save();
+    public function adicionarA(Request $req)
+    {
+        $agendamentoCA = new Agendamento;
+        $agendamentoCA->Servico = $req->Servico;
+        $agendamentoCA->DataServico = $req->DataServico;
+        $agendamentoCA->Horario = $req->Horario;
+        $agendamentoCA->IdCliente = $req->IdCliente;
+        $agendamentoCA->IdFunc = $req->IdFunc;
+        $agendamentoCA->save();
         return redirect()->back();
     }
 
-    public function editarA(Request $req){
-        $agendamento = Agendamento::find($req->id);
-        return view('editar')->with("agendamento", $agendamento);
+    public function editarA(Request $req)
+    {
+        $agendamentoCA = Agendamento::find($req->id);
+        return view('AgendamentoEdit')->with("agendamentoCA", $agendamentoCA);
     }
 
-    public function atualizarA(Request $req){
-        $agendamento = Agendamento::find($req->id);
-        $agendamento->update(
-            [
-               "Servico" => $req->Servico,
-               "DataServico" => $req->DataServico,
-               "Horario" => $req->Horario,
-               "IdCliente" => $req->IdCliente,
-               "IdFunc"=>$req->IdFunc
-            ]);
-        return redirect()->back();
-        
+    public function atualizarA(Request $req)
+    {
+        $agendamentoCA = Agendamento::find($req->id);
+        $agendamentoCA->update([
+            "Servico" => $req->Servico,
+            "DataServico" => $req->DataServico,
+            "Horario" => $req->Horario,
+            "IdCliente" => $req->IdCliente,
+            "IdFunc" => $req->IdFunc
+        ]);
+        return redirect('/AC');
     }
 
-    public function excluirA(Request $req){
-        $agendamento = Agendamento::find($req->id);
-        $agendamento->delete();
+    public function excluirA(Request $req)
+    {
+        $agendamentoCA = Agendamento::find($req->id);
+        $agendamentoCA->delete();
         return redirect()->back();
     }
 }
